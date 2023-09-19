@@ -24,6 +24,7 @@ class HomePageContentState extends ConsumerState<KnowViewPage> {
     final String currentUserName = currentUserDoc?.get('displayName') ?? '未登録';
     final String partnerUserName = partnerUserDoc?.get('displayName') ?? '未登録';
     return Scaffold(
+      backgroundColor: AppColors.main,
       appBar: AppBar(
         backgroundColor: AppColors.appbar,
         elevation: 3,

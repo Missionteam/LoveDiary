@@ -68,6 +68,7 @@ class HomePageContentState extends ConsumerState<HomePageContent> {
     final partnerUserDoc = ref.watch(partnerUserDocProvider).value;
 
     return Scaffold(
+      backgroundColor: AppColors.main,
       appBar: AppBar(
         backgroundColor: AppColors.appbar,
         elevation: 3,
