@@ -4,22 +4,22 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
 import 'package:thanks_diary/pages/home_page.dart';
-import 'package:thanks_diary/pages/input_page.dart';
+import 'package:thanks_diary/pages/know_input_page.dart';
+import 'package:thanks_diary/pages/know_view_page.dart';
+import 'package:thanks_diary/pages/love_input_page.dart';
+import 'package:thanks_diary/pages/love_view_page.dart';
 import 'package:thanks_diary/pages/review_page.dart';
 import 'package:thanks_diary/pages/tworoom/chat_page.dart';
-import 'package:thanks_diary/pages/tworoom/chat_room_page.dart';
-import 'package:thanks_diary/pages/tworoom/myroom_page.dart';
 import 'package:thanks_diary/pages/tworoom/notification_page.dart';
-import 'package:thanks_diary/pages/tworoom/partner_room_page.dart';
 import 'package:thanks_diary/pages/tworoom/tworoom_home_page.dart';
-import 'package:thanks_diary/pages/tworoom/voice_page.dart';
+import 'package:thanks_diary/widgets/fundomental/BtmNavigation.dart';
 
 import 'firebase_options.dart';
 import 'pages/auth/auth_checker.dart';
 import 'pages/setting_page.dart';
-import 'pages/tworoom/room_grid_page.dart';
 
 //      home: const SignInPage(),
 final GlobalKey<NavigatorState> _rootNavigatorKey =
@@ -53,6 +53,7 @@ Future<void> main() async {
     if (stack is stack_trace.Chain) return stack.toTrace().vmTrace;
     return stack;
   };
+  await initializeDateFormatting('ja_JP', null);
   runApp(
     ProviderScope(child: InitPage()),
   );
@@ -94,7 +95,7 @@ class _MyAppState extends ConsumerState<MyApp> {
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
         builder: (BuildContext context, GoRouterState state, Widget child) {
-          return child;
+          return ScaffoldWithNavBar1Review(child: child);
         },
         routes: <RouteBase>[
           /// The first screen to display in the bottom navigation bar
@@ -139,53 +140,30 @@ class _MyAppState extends ConsumerState<MyApp> {
                 ),
               ]),
           GoRoute(
-            path: '/Input',
+            path: '/LoveInput',
             pageBuilder: (BuildContext context, GoRouterState state) {
-              return NoTransitionPage(child: InputPage());
+              return NoTransitionPage(child: LoveInputPage());
+            },
+          ),
+          GoRoute(
+            path: '/LoveView',
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return NoTransitionPage(child: LoveViewPage());
+            },
+          ),
+          GoRoute(
+            path: '/KnowInput',
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return NoTransitionPage(child: KnowInputPage());
+            },
+          ),
+          GoRoute(
+            path: '/KnowView',
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return NoTransitionPage(child: KnowViewPage());
             },
           ),
 
-          /// The third screen to display in the bottom navigation bar.
-          GoRoute(
-            path: '/Chat1',
-            pageBuilder: (BuildContext context, GoRouterState state) {
-              return NoTransitionPage(child: ChatPage1());
-            },
-          ),
-          GoRoute(
-            path: '/Voice',
-            pageBuilder: (BuildContext context, GoRouterState state) {
-              return NoTransitionPage(child: VoicePage());
-            },
-          ),
-          GoRoute(
-            path: '/RoomGrid1',
-            pageBuilder: (BuildContext context, GoRouterState state) {
-              return NoTransitionPage(child: RoomGridPage());
-            },
-            routes: <RouteBase>[
-              // The details screen to display stacked on the inner Navigator.
-              // This will cover screen A but not the application shell.
-              GoRoute(
-                path: 'Chat1',
-                builder: (BuildContext context, GoRouterState state) {
-                  return ChatRoomPage1();
-                },
-              ),
-            ],
-          ),
-          GoRoute(
-            path: '/MyRoom1',
-            pageBuilder: (context, state) {
-              return NoTransitionPage(child: MyRoomPage1());
-            },
-          ),
-          GoRoute(
-            path: '/MyRoom2',
-            pageBuilder: (context, state) {
-              return NoTransitionPage(child: MyRoomPage2());
-            },
-          ),
           GoRoute(
             path: '/Review',
             pageBuilder: (context, state) {

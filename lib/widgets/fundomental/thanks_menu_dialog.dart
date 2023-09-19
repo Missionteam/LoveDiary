@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:thanks_diary/models/thanks.dart';
+import 'package:thanks_diary/models/love.dart';
 
 import '../../providers/auth_provider.dart';
 import '../record/player/player.dart';
@@ -9,12 +9,12 @@ import '../util/text.dart';
 class MenuThanksDialog extends ConsumerWidget {
   const MenuThanksDialog({
     Key? key,
-    required this.thanks,
+    required this.love,
   }) : super(key: key);
 
-  final Thanks thanks;
+  final Love love;
   Future<void> updatePost(String text) async {
-    thanks.reference.update({'stamps': text});
+    love.reference.update({'stamps': text});
   }
 
   @override
@@ -31,10 +31,10 @@ class MenuThanksDialog extends ConsumerWidget {
           ),
           Align(
             alignment: Alignment.centerRight,
-            child: (thanks.posterId == uid)
+            child: (love.posterId == uid)
                 ? PostDeleteButton(
                     onDelete: () {
-                      thanks.reference.delete();
+                      love.reference.delete();
                       int count = 0;
                       Navigator.popUntil(context, (_) => count++ >= 2);
                     },
@@ -44,7 +44,7 @@ class MenuThanksDialog extends ConsumerWidget {
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
-              thanks.reference.update({'stamps': '❤️'});
+              love.reference.update({'stamps': '❤️'});
             },
             child: Image.asset("images/home/love.png", width: 50),
           ),

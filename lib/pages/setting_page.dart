@@ -11,9 +11,7 @@ import 'package:thanks_diary/function/firestore_functions.dart';
 import 'package:thanks_diary/models/cloud_storage_model.dart';
 import 'package:thanks_diary/providers/auth_provider.dart';
 import 'package:thanks_diary/providers/users_provider.dart';
-import 'package:thanks_diary/widgets/specific/setting/linkage_dialog.dart';
 import 'package:thanks_diary/widgets/specific/setting/profile_setting_dialog.dart';
-import 'package:thanks_diary/widgets/specific/setting/share_dialog.dart';
 
 import '../providers/talkroom_provider.dart';
 
@@ -165,19 +163,19 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               //     icon: Icons.chat_bubble_outline,
               //     text: 'ヘルプ＆フィードバック',
               //     onpressed: () {}),
-              MenuWidget(
-                  icon: Icons.person_add_rounded,
-                  text: 'パートナーと連携する',
-                  onpressed: () {
-                    showDialog(
-                        context: context, builder: (_) => LinkageDialog());
-                  }),
-              MenuWidget(
-                  icon: Icons.share,
-                  text: 'このアプリを共有',
-                  onpressed: () {
-                    showDialog(context: context, builder: (_) => ShareDialog());
-                  }),
+              // MenuWidget(
+              //     icon: Icons.person_add_rounded,
+              //     text: 'パートナーと連携する',
+              //     onpressed: () {
+              //       showDialog(
+              //           context: context, builder: (_) => LinkageDialog());
+              //     }),
+              // MenuWidget(
+              //     icon: Icons.share,
+              //     text: 'このアプリを共有',
+              //     onpressed: () {
+              //       showDialog(context: context, builder: (_) => ShareDialog());
+              //     }),
               // MenuWidget(
               //     icon: Icons.info_outline,
               //     text: 'ふたりべやについて',

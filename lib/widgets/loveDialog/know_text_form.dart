@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:thanks_diary/function/util_functions.dart';
 
-class TextForm extends StatefulWidget {
-  TextForm({
+class KnowTextForm extends StatefulWidget {
+  KnowTextForm({
     Key? key,
     required this.formKey,
     required this.text,
@@ -13,6 +13,7 @@ class TextForm extends StatefulWidget {
     this.fontSize = 24,
     this.topPadding = 20,
     this.color = Colors.white,
+    this.maxline = 3,
   }) : super(key: key);
   String text;
   String hintText;
@@ -21,13 +22,14 @@ class TextForm extends StatefulWidget {
   Key? formKey;
   double fontSize;
   double topPadding;
+  int maxline;
   void Function(String?)? onSaved;
 
   @override
-  State<TextForm> createState() => _TextFormState();
+  State<KnowTextForm> createState() => _KnowTextFormState();
 }
 
-class _TextFormState extends State<TextForm> {
+class _KnowTextFormState extends State<KnowTextForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -35,17 +37,26 @@ class _TextFormState extends State<TextForm> {
         child: ConstrainedBox(
           constraints: BoxConstraints(maxHeight: 200),
           child: Container(
-              padding: EdgeInsets.only(top: widget.topPadding, bottom: 20),
+              padding: EdgeInsets.only(top: widget.topPadding, bottom: 8),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    widget.text,
-                    style: GoogleFonts.nunito(
-                        fontSize: 14,
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.play_arrow,
                         color: widget.color,
-                        fontWeight: FontWeight.w600),
+                        size: 14,
+                      ),
+                      Text(
+                        widget.text,
+                        style: GoogleFonts.nunito(
+                            fontSize: 14,
+                            color: widget.color,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ],
                   ),
                   Material(
                     color: Color.fromARGB(0, 255, 214, 64),
@@ -55,7 +66,7 @@ class _TextFormState extends State<TextForm> {
                         enabled: true,
                         obscureText: false,
                         keyboardType: TextInputType.multiline,
-                        maxLines: null,
+                        maxLines: widget.maxline,
                         initialValue: widget.initialValue,
                         style: GoogleFonts.nunito(
                             color: widget.color,
@@ -65,7 +76,7 @@ class _TextFormState extends State<TextForm> {
                             hintText: widget.hintText,
                             hintStyle: TextStyle(
                               color: Color.fromARGB(169, 72, 72, 72),
-                              fontSize: 14,
+                              fontSize: 12,
                             ),
 
                             // labelText: '部屋の名前',

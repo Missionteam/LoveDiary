@@ -79,12 +79,12 @@ android {
           debug {
             debuggable true
             applicationIdSuffix ""
-            resValue "string", "app_name", "ありがとう日記"
+            resValue "string", "app_name", "gokigen"
         }
        release {
             debuggable false
             applicationIdSuffix ""
-            resValue "string", "app_name", "ありがとう日記"
+            resValue "string", "app_name", "gokigen"
 
 
             signingConfig signingConfigs.release

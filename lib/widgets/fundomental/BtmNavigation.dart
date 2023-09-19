@@ -29,46 +29,20 @@ class ScaffoldWithNavBar1Review extends ConsumerStatefulWidget {
 
   static int _calculateSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).location;
-    if (location.startsWith('/Home1')) {
+    if (location.startsWith('/LoveView')) {
       return 0;
     }
-    if (location.startsWith('/Chat1')) {
-      return 1;
-    }
-    if (location.startsWith('/MyRoom2')) {
-      return 2;
-    }
-    if (location.startsWith('/MyRoom1')) {
-      return 3;
-    }
-    if (location.startsWith('/Review')) {
-      return 4;
-    }
-    return 0;
-  }
-
-  static int _calculateSelectedIndex1(BuildContext context) {
-    final String location = GoRouterState.of(context).location;
     if (location.startsWith('/Home1')) {
-      return 0;
-    }
-    if (location.startsWith('/Chat1')) {
       return 1;
     }
-    if (location.startsWith('/RoomGrid1')) {
+    if (location.startsWith('/KnowView')) {
       return 2;
     }
 
-    if (location.startsWith('/MyRoom1')) {
-      return 3;
-    }
-    if (location.startsWith('/Review')) {
-      return 4;
-    }
     // if (location.startsWith('/Setting')) {
     //   return 4;
     // }
-    return 0;
+    return 1;
   }
 }
 
@@ -130,190 +104,92 @@ class _ScaffoldWithNavBar1ReviewState
   @override
   Widget build(BuildContext context) {
     // const backgroundColor = Color.fromARGB(255, 238, 192, 191);
-    const backgroundColor = AppColors.main;
+    const backgroundColor = AppColors.appbar;
     final version = ref.watch(talkroomDocProvider).value?.get('version') ?? 1;
     final user = ref.watch(CurrentAppUserDocProvider).value?.data();
 
-    return (version == 0)
-        ? Scaffold(
-            resizeToAvoidBottomInset: true,
-            body: widget.child,
-            bottomNavigationBar: Container(
-              color: AppColors.main,
+    return Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: widget.child,
+        bottomNavigationBar: Container(
+          color: AppColors.main,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: Color.fromARGB(147, 59, 59, 59),
+                  blurRadius: 8,
+                ),
+              ],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
               child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Color.fromARGB(147, 59, 59, 59),
-                      blurRadius: 8,
+                height: 80,
+                child: BottomNavigationBar(
+                  items: const <BottomNavigationBarItem>[
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.favorite),
+                      label: 'love',
+                      backgroundColor: Color.fromARGB(255, 180, 35, 35),
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.home),
+                      label: 'home',
+                      backgroundColor: backgroundColor,
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.emoji_objects),
+                      label: '整理',
+                      backgroundColor: backgroundColor,
                     ),
                   ],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
+                  currentIndex:
+                      ScaffoldWithNavBar1Review._calculateSelectedIndex(
+                          context),
+                  backgroundColor: backgroundColor,
+                  elevation: 10,
+                  type: BottomNavigationBarType.fixed,
+                  onTap: (int idx) => _onItemTapped(idx, context, user),
+                  fixedColor: AppColors.buttonGreen,
+                  // fixedColor: AppColors.red,
+                  unselectedItemColor: Color.fromARGB(255, 150, 167, 175),
+                  showUnselectedLabels: false,
+                  showSelectedLabels: false,
+                  selectedIconTheme: IconThemeData(size: 30),
+                  unselectedIconTheme: IconThemeData(size: 30),
+                  unselectedLabelStyle: GoogleFonts.nunito(
+                    fontWeight: FontWeight.w500,
+                    color: Color.fromARGB(255, 90, 90, 90),
                   ),
-                  child: Container(
-                    height: 80,
-                    child: BottomNavigationBar(
-                      items: const <BottomNavigationBarItem>[
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.home),
-                          label: 'Home',
-                          backgroundColor: Color.fromARGB(255, 180, 35, 35),
-                        ),
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.question_answer_outlined),
-                          label: 'Chat',
-                          backgroundColor: backgroundColor,
-                        ),
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.textsms),
-                          label: 'PartnerRoom',
-                          backgroundColor: backgroundColor,
-                        ),
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.textsms_outlined),
-                          label: 'MyRoom',
-                          backgroundColor: backgroundColor,
-                        ),
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.border_color),
-                          label: 'Settings',
-                          backgroundColor: backgroundColor,
-                        ),
-                      ],
-                      currentIndex:
-                          ScaffoldWithNavBar1Review._calculateSelectedIndex(
-                              context),
-                      backgroundColor: backgroundColor,
-                      elevation: 10,
-                      type: BottomNavigationBarType.fixed,
-                      onTap: (int idx) => _onItemTapped(idx, context, user),
-                      fixedColor: Color.fromARGB(255, 120, 140, 150),
-                      // fixedColor: AppColors.red,
-                      unselectedItemColor: Color.fromARGB(255, 150, 167, 175),
-                      showUnselectedLabels: false,
-                      showSelectedLabels: false,
-                      selectedIconTheme: IconThemeData(size: 30),
-                      unselectedIconTheme: IconThemeData(size: 30),
-                      unselectedLabelStyle: GoogleFonts.nunito(
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 90, 90, 90),
-                      ),
-                      selectedLabelStyle: GoogleFonts.nunito(
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 90, 90, 90),
-                      ),
-                      enableFeedback: false,
-                    ),
-                  ),
+                  selectedLabelStyle: GoogleFonts.nunito(
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.buttonGreen),
+                  enableFeedback: false,
                 ),
               ),
-            ))
-        : Scaffold(
-            resizeToAvoidBottomInset: true,
-            body: widget.child,
-            bottomNavigationBar: Container(
-              color: AppColors.main,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Color.fromARGB(147, 59, 59, 59),
-                      blurRadius: 8,
-                    ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                  child: Container(
-                    height: 80,
-                    child: BottomNavigationBar(
-                      items: const <BottomNavigationBarItem>[
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.home),
-                          label: 'Home',
-                          backgroundColor: backgroundColor,
-                        ),
-
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.question_answer_outlined),
-                          label: 'Chat',
-                          backgroundColor: backgroundColor,
-                        ),
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.menu_book),
-                          label: 'Room',
-                          backgroundColor: backgroundColor,
-                        ),
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.sms_outlined),
-                          label: 'MyRoom',
-                          backgroundColor: backgroundColor,
-                        ),
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.border_color),
-                          label: 'Settings',
-                          backgroundColor: backgroundColor,
-                        ),
-                        // BottomNavigationBarItem(
-                        //   icon: Icon(Icons.account_circle_outlined),
-                        //   label: 'Settings',
-                        //   backgroundColor: backgroundColor,
-                        // ),
-                      ],
-                      currentIndex:
-                          ScaffoldWithNavBar1Review._calculateSelectedIndex1(
-                              context),
-                      backgroundColor: backgroundColor,
-                      elevation: 10,
-                      type: BottomNavigationBarType.fixed,
-                      onTap: (int idx) => _onItemTapped1(idx, context),
-                      fixedColor: Color.fromARGB(255, 120, 140, 150),
-                      unselectedItemColor: Color.fromARGB(255, 150, 167, 175),
-                      showUnselectedLabels: false,
-                      showSelectedLabels: false,
-                      selectedIconTheme: IconThemeData(size: 30),
-                      unselectedIconTheme: IconThemeData(size: 30),
-                      unselectedLabelStyle: GoogleFonts.nunito(
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 90, 90, 90),
-                      ),
-                      selectedLabelStyle: GoogleFonts.nunito(
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 90, 90, 90),
-                      ),
-                      enableFeedback: false,
-                    ),
-                  ),
-                ),
-              ),
-            ));
+            ),
+          ),
+        ));
   }
 
   void _onItemTapped(int index, BuildContext context, AppUser? user) {
     switch (index) {
       case 0:
-        GoRouter.of(context).go('/Home1');
+        GoRouter.of(context).go('/LoveView');
         break;
       case 1:
-        GoRouter.of(context).go('/Chat1');
+        GoRouter.of(context).go('/Home1');
         break;
       case 2:
-        GoRouter.of(context).go('/MyRoom2');
+        GoRouter.of(context).go('/KnowView');
         // if (user?.isFirstUseVoice == true) {
         //   // showCustomSnackBar(context,
         //   //     bottomPadding: 30,
@@ -333,27 +209,6 @@ class _ScaffoldWithNavBar1ReviewState
         break;
       case 3:
         GoRouter.of(context).go('/MyRoom1');
-        break;
-      case 4:
-        GoRouter.of(context).go('/Review');
-        break;
-    }
-  }
-
-  void _onItemTapped1(int index, BuildContext context) {
-    switch (index) {
-      case 0:
-        GoRouter.of(context).go('/Home1');
-        break;
-      case 1:
-        GoRouter.of(context).go('/Chat1');
-        break;
-      case 2:
-        GoRouter.of(context).go('/RoomGrid1');
-        break;
-      case 3:
-        GoRouter.of(context).go('/MyRoom1');
-        // GoRouter.of(context).go('/Setting');
         break;
       case 4:
         GoRouter.of(context).go('/Review');

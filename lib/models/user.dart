@@ -7,7 +7,7 @@ class AppUser {
   final String photoUrl;
   final String displayName;
   final Timestamp? updateAt;
-  final String whatNowMessage;
+  final String? partnerName;
   final String talkroomId;
   final String chtattingWith;
   final String whatNow;
@@ -26,7 +26,7 @@ class AppUser {
       required this.photoUrl,
       required this.displayName,
       this.updateAt = null,
-      this.whatNowMessage = '',
+      this.partnerName = '',
       this.isShowRecruit = true,
       required this.talkroomId,
       required this.chtattingWith,
@@ -45,7 +45,7 @@ class AppUser {
         Consts.displayName: displayName,
         Consts.photoUrl: photoUrl,
         Consts.updateAt: updateAt,
-        'whatNowMessage': whatNowMessage,
+        'partnerName': partnerName,
         Consts.talkroomId: talkroomId,
         'chattingWith': chtattingWith,
         Consts.whatNow: whatNow,
@@ -68,7 +68,7 @@ class AppUser {
       photoUrl: map[Consts.photoUrl] ?? 'Girl',
       displayName: map[Consts.displayName] ?? '',
       updateAt: map[Consts.updateAt],
-      whatNowMessage: map['whatNowMessage'] ?? '',
+      partnerName: map['partnerName'],
       talkroomId: map[Consts.talkroomId] ?? '',
       chtattingWith: map[Consts.chattingWith] ?? 'P18KIdVBUqdcqVGyJt6moTLoONf2',
       isShowRecruit: map['isShowRecruit'] ?? true,

@@ -97,7 +97,7 @@ class _DialogState extends ConsumerState<BaseDialog> {
                               size: 15,
                             ),
                             onPressed: () {
-                              Navigator.of(context).pop();
+                              Navigator.of(context).pop(true);
                             },
                           ))
                       : SizedBox()

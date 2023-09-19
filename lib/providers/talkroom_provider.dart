@@ -42,7 +42,7 @@ final talkroomIdProvider = FutureProvider<String>((ref) async {
         photoUrl: 'Girl',
         displayName: 'かな',
         updateAt: null,
-        whatNowMessage: '',
+        partnerName: '',
         talkroomId: uid,
         chtattingWith: 'P18KIdVBUqdcqVGyJt6moTLoONf2',
         whatNow: 'SleepGirl1.png',

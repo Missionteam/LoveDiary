@@ -40,7 +40,7 @@ final currentAppUserDocSetter = FutureProvider((ref) async {
         photoUrl: 'Girl',
         displayName: 'かな',
         updateAt: null,
-        whatNowMessage: '',
+        partnerName: '',
         talkroomId: uid,
         chtattingWith: 'P18KIdVBUqdcqVGyJt6moTLoONf2',
         whatNow: 'SleepGirl1.png',
@@ -124,7 +124,7 @@ final userWhatNowMessageProvider = FutureProvider<String?>((ref) {
   final currentAppUserDoc = ref.watch(CurrentAppUserDocProvider).value;
   final doc = currentAppUserDoc?.data();
 
-  final whatNowMessage = currentAppUserDoc?.data()?.whatNowMessage ?? '';
+  final whatNowMessage = currentAppUserDoc?.data()?.partnerName ?? '';
   return whatNowMessage;
 });
 final userupdateAtProvider = FutureProvider((ref) {
@@ -150,7 +150,7 @@ final partnerWhatNowProvider = Provider((ref) {
 });
 final partnerWhatNowMessageProvider = FutureProvider<String?>((ref) {
   final partnerAppUserDoc = ref.watch(partnerUserDocProvider).value;
-  final whatNowMessage = partnerAppUserDoc?.data()?.whatNowMessage ?? '';
+  final whatNowMessage = partnerAppUserDoc?.data()?.partnerName ?? '';
   return whatNowMessage;
 });
 final partnerUpdateAtProvider = FutureProvider((ref) {

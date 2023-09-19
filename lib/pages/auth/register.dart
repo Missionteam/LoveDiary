@@ -17,6 +17,7 @@ class RegisterPage extends ConsumerStatefulWidget {
 
 class _RegisterPageState extends ConsumerState<RegisterPage> {
   String name = '';
+  String partnerName = "○○";
   RadioValue _gValue = RadioValue.FIRST;
   _onRadioSelected(value) {
     setState(() {
@@ -64,6 +65,16 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                     });
                   },
                 ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'パートナーの名前',
+                  ),
+                  onChanged: (String value) {
+                    setState(() {
+                      partnerName = value;
+                    });
+                  },
+                ),
 
                 SizedBox(
                   height: 30,
@@ -78,7 +89,8 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                         bool isGirl =
                             (_gValue == RadioValue.FIRST) ? true : false;
                         String userimage = (isGirl == true) ? 'Girl' : 'Boy';
-                        userDoc.update({'displayName': name});
+                        userDoc.update(
+                            {'displayName': name, 'partnerName': partnerName});
                         userDoc.update({'isGirl': isGirl});
                         userDoc.update({'photoUrl': userimage});
 

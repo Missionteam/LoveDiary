@@ -4,7 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:thanks_diary/allConstants/all_constants.dart';
 import 'package:thanks_diary/function/util_functions.dart';
-import 'package:thanks_diary/widgets/fundomental/thanks_list.dart';
+import 'package:thanks_diary/pages/know_input_page.dart';
+import 'package:thanks_diary/pages/love_input_page.dart';
 import 'package:thanks_diary/widgets/util/text.dart';
 
 import '../providers/cloud_messeging_provider.dart';
@@ -65,96 +66,68 @@ class HomePageContentState extends ConsumerState<HomePageContent> {
   Widget build(BuildContext context) {
     final currentUserDoc = ref.watch(CurrentAppUserDocProvider).value;
     final partnerUserDoc = ref.watch(partnerUserDocProvider).value;
-    final String currentUserName = currentUserDoc?.get('displayName') ?? '未登録';
-    final String partnerUserName = partnerUserDoc?.get('displayName') ?? '未登録';
-    return Stack(children: [
-      Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        SizedBox(height: 46),
-        InkWell(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              NotoText(
-                text: "8月",
-                fontSize: 18,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 6.0),
-                child: Icon(Icons.expand_more),
-              )
-            ],
-          ),
-        ),
-        SizedBox(height: 8),
-        Row(
-          mainAxisSize: MainAxisSize.min,
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.appbar,
+        elevation: 3,
+        centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () {
+                context.go('/Home1/Setting');
+              },
+              icon: Icon(
+                Icons.settings,
+                color: AppColors.spaceLight,
+              ))
+        ],
+      ),
+      body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  isMine = false;
-                });
-              },
-              child: NotoText(
-                text: partnerUserName,
-                fontWeight: FontWeight.w600,
-              ),
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: !isMine
-                      ? Color.fromARGB(184, 195, 195, 195)
-                      : AppColors.noColor,
-                  shape: const StadiumBorder(),
-                  elevation: 0,
-                  foregroundColor: Colors.black),
-            ),
-            SizedBox(width: 10),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  isMine = true;
-                });
-              },
-              child: NotoText(
-                text: currentUserName,
-                fontWeight: FontWeight.w600,
-              ),
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: isMine
-                      ? Color.fromARGB(184, 195, 195, 195)
-                      : AppColors.noColor,
-                  elevation: 0,
-                  shape: const StadiumBorder(),
-                  foregroundColor: Colors.black),
-            )
-          ],
-        ),
-        ThanksList(
-          isMine: isMine,
-        ),
-        ElevatedButton(
+            SizedBox(width: double.infinity),
+            MyButton(
+                text: "○○の好きなところを書く。",
+                page: LoveInputPage(),
+                path: "/LoveView"),
+            MyButton(
+                text: "もやもやを整理する", page: KnowInputPage(), path: "/KnowView"),
+          ]),
+    );
+  }
+}
+
+class MyButton extends StatelessWidget {
+  const MyButton({
+    super.key,
+    required this.text,
+    required this.page,
+    required this.path,
+  });
+
+  final String text;
+  final Widget page;
+  final String path;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: ElevatedButton(
           onPressed: () {
-            GoRouter.of(context).push('/Input');
+            showDialog(context: context, builder: (_) => page);
+            context.go(path);
           },
-          child: Text("今日のありがとうを書く。"),
           style: ElevatedButton.styleFrom(
-              minimumSize: Size(
-            280,
-            40,
+            backgroundColor: AppColors.buttonGreen,
+            minimumSize: Size(sWidth(context) * 0.8, 50),
+          ),
+          child: NotoText(
+            text: text,
+            color: Colors.white,
           )),
-        ),
-        SizedBox(height: 40),
-      ]),
-      Positioned(
-          right: sWidth(context) * 0.1,
-          top: sHieght(context) * 0.05,
-          width: 26,
-          child: InkWell(
-              onTap: () {
-                GoRouter.of(context).push('/Home1/Setting');
-              },
-              child: Image.asset('images/home/SettingIcon.png'))),
-    ]);
+    );
   }
 }
 

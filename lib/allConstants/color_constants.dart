@@ -2,7 +2,8 @@ import 'dart:ui';
 
 class AppColors {
   AppColors._();
-  static const Color main = Color(0xffc5f9d2);
+  static const Color main = Color(0xffFBF8F1);
+  static const Color appbar = Color(0xffF7ECDE);
   static const Color spaceLight = Color(0xff2b3a67);
   static const Color orangeWeb = Color(0xFFf59400);
   static const Color white = Color(0xFFf5f5f5);
@@ -14,4 +15,5 @@ class AppColors {
   static const Color spaceCadet = Color(0xFF2a2d43);
   // static const Color main = Color.fromARGB(255, 255, 209, 209);
   static const Color noColor = Color.fromARGB(0, 0, 0, 0);
+  static const Color buttonGreen = Color(0xff54BAB9);
 }
