@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "719621160823",
+    "project_id": "todays-diary-ba9b8",
+    "storage_bucket": "todays-diary-ba9b8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719621160823:android:adc7144f387006a6ac6b72",
+        "android_client_info": {
+          "package_name": "com.missionyr.thanksdairy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "719621160823-7pqujl86ltln1unr8ils5m95o1msnov2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQZmX5HMec3YDFoulZ8F4RhHA2vUTxuyk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "719621160823-7pqujl86ltln1unr8ils5m95o1msnov2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "719621160823-0d5m0c3cfvbcjkuucnm1d4pbptm868in.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.missionyr.thanksdairy"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
