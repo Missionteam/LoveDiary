@@ -75,6 +75,7 @@ class HomePageContentState extends ConsumerState<HomePageContent> {
         centerTitle: true,
         actions: [
           IconButton(
+            color: Color.fromARGB(0, 0, 0, 0),
               onPressed: () {
                 context.go('/Home1/Setting');
               },
@@ -121,7 +122,7 @@ class MyButton extends StatelessWidget {
             context.go(path);
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.buttonGreen,
+            backgroundColor               : AppColors.buttonGreen,
             minimumSize: Size(sWidth(context) * 0.8, 50),
           ),
           child: NotoText(

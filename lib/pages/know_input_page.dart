@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:thanks_diary/allConstants/all_constants.dart';
 import 'package:thanks_diary/function/update_know.dart';
@@ -16,6 +17,7 @@ import 'package:thanks_diary/widgets/util/text.dart';
 import '../function/send_know.dart';
 import '../models/know.dart';
 import '../models/loveCategory_model.dart';
+import '../widgets/loveDialog/know_items.dart';
 
 class KnowInputPage extends ConsumerStatefulWidget {
   KnowInputPage({Key? key, this.know}) : super(key: key);
@@ -32,6 +34,7 @@ class InputPageState extends ConsumerState<KnowInputPage> {
   final formKey3 = GlobalKey<FormState>();
   final formKey4 = GlobalKey<FormState>();
   final formKey5 = GlobalKey<FormState>();
+  final formKey6 = GlobalKey<FormState>();
   LoveReason? _selectedItemPath;
   String? situation;
   String? feeling;
@@ -115,7 +118,7 @@ class InputPageState extends ConsumerState<KnowInputPage> {
           ),
           body: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -167,71 +170,100 @@ class InputPageState extends ConsumerState<KnowInputPage> {
                                   )),
                             ))),
                     SizedBox(height: 26),
+                    KnowItemList(
+                      text: "もやもやしたことを選ぼう",
+                      onItemTap: _handleItemTap,
+                      selectedReason: _selectedItemPath,
+                      text1: "言い方",
+                      text2: "態度",
+                      text3: "家事",
+                      text4: "連絡頻度",
+                      text5: "スキンシップ",
+                      text6: "その他",
+                    ),
                     KnowTextForm(
                         formKey: formKey,
-                        text: "状況を書き出してみよう",
-                        hintText: "(例)夏休みどこ行く？と聞いたら、「どこでもいいよ」と言われた",
-                        initialValue: widget.know?.situation ?? "",
-                        color: Color.fromARGB(255, 28, 28, 28),
-                        fontSize: 10,
-                        onSaved: (String? value) {
-                          this.situation = value;
-                        }),
-                    KnowTextForm(
-                        formKey: formKey1,
-                        text: "感情を書き出してみよう",
-                        hintText: "(例)腹立つ。考える素振りくらい見せろ。任せておけばプラン立ってると思うなよ？",
+                        text: "何があった？",
+                        hintText: "(例)夏休みどこ行きたいか聞いたら、「どこでもいいよ」と言われた",
                         initialValue: widget.know?.feeling ?? "",
                         color: Color.fromARGB(255, 28, 28, 28),
                         fontSize: 10,
                         onSaved: (String? value) {
                           this.feeling = value;
                         }),
+                    KnowItemList(
+                      text: "今の感情を探そう",
+                      onItemTap: _handleItemTap,
+                      selectedReason: _selectedItemPath,
+                      text1: "悲しい",
+                      text2: "イライラ",
+                      text3: "悔しい",
+                      text4: "寂しい",
+                      text5: "無気力",
+                      text6: "その他",
+                    ),
                     KnowTextForm(
-                        formKey: formKey2,
+                        formKey: formKey4,
                         text: "なぜそう感じた？",
-                        hintText:
-                            "(例)デートのプランを立てているのは毎回自分で、私と出かけるのそんなに楽しみじゃないのかなと思ってしまうから。",
+                        hintText: "(例)出かけるの楽しみじゃないのかなと思ったから",
                         initialValue: widget.know?.why ?? "",
                         color: Color.fromARGB(255, 28, 28, 28),
                         fontSize: 10,
                         onSaved: (String? value) {
                           this.why = value;
                         }),
-                    KnowTextForm(
-                        formKey: formKey3,
-                        text: "○○の肩を持ってみよう",
-                        hintText:
-                            "(例)楽しみじゃないわけじゃない。選んでくれるところは全部楽しいし、調べるのが好きなんだと思っていた。",
-                        initialValue: widget.know?.view ?? "",
-                        color: Color.fromARGB(255, 28, 28, 28),
-                        fontSize: 10,
-                        onSaved: (String? value) {
-                          this.view = value;
-                        }),
-                    KnowTextForm(
-                        formKey: formKey4,
-                        text: "どうしてほしい？",
-                        hintText: "(例)たまにはデートプランを立ててほしい。",
-                        maxline: 2,
-                        initialValue: widget.know?.want ?? "",
-                        color: Color.fromARGB(255, 28, 28, 28),
-                        fontSize: 10,
-                        onSaved: (String? value) {
-                          this.want = value;
-                        }),
-                    KnowTextForm(
-                        formKey: formKey5,
-                        text: "話したいこと",
-                        hintText:
-                            "(例)デートの行き先決めがわりと負担。○○の行きたいところにも行ってみたい。できれば順番に決めたいけどどうか。",
-                        maxline: 2,
-                        initialValue: widget.know?.talk ?? "",
-                        color: Color.fromARGB(255, 28, 28, 28),
-                        fontSize: 10,
-                        onSaved: (String? value) {
-                          this.talk = value;
-                        }),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.play_arrow,
+                          color: Colors.black,
+                          size: 14,
+                        ),
+                        Text(
+                          "話したいことをまとめ",
+                          style: GoogleFonts.nunito(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Container(
+                      width: double.infinity,
+                      color: Color(0xffF7ECDE),
+                      child: Column(
+                        children: [
+                          NotoText(text: "今から言うことは、"),
+                          NotoText(text: "あなたのことが大好き"),
+                          NotoText(text: "これからも一緒にいたい"),
+                          NotoText(text: "と思っているから伝えるんだけど"),
+                          KnowTextForm(
+                              formKey: formKey5,
+                              text: "",
+                              hintText: "(例)出かけるの楽しみじゃないのかなと思ったから",
+                              initialValue: widget.know?.why ?? "",
+                              color: Color.fromARGB(255, 28, 28, 28),
+                              fontSize: 10,
+                              onSaved: (String? value) {
+                                this.why = value;
+                              }),
+                          NotoText(text: "というできごとに、"),
+                          KnowTextForm(
+                              formKey: formKey6,
+                              text: "",
+                              hintText: "(例)出かけるの楽しみじゃないのかなと思ったから",
+                              initialValue: widget.know?.why ?? "",
+                              color: Color.fromARGB(255, 28, 28, 28),
+                              fontSize: 10,
+                              onSaved: (String? value) {
+                                this.why = value;
+                              }),
+                        ],
+                      ),
+                    ),
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
@@ -290,6 +322,42 @@ class InputPageState extends ConsumerState<KnowInputPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class CheckboxList extends StatelessWidget {
+  const CheckboxList({
+    super.key,
+    required this.text1,
+    required this.text2,
+    required this.text3,
+  });
+  final String text1;
+  final String text2;
+  final String text3;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CheckboxAndText(text: text1),
+        CheckboxAndText(text: text2),
+        CheckboxAndText(text: text3),
+      ],
+    );
+  }
+}
+
+class CheckboxAndText extends StatelessWidget {
+  ///アプリに表示されない、ウィジェットが持っている変数を書くところ。
+  const CheckboxAndText({super.key, required this.text});
+  final String text;
+
+  ///中身のウィジェット（実際にアプリが表示される部分）
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [Checkbox(value: true, onChanged: (bool) {}), Text(text)],
     );
   }
 }
