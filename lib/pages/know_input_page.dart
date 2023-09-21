@@ -8,7 +8,6 @@ import 'package:thanks_diary/function/update_know.dart';
 import 'package:thanks_diary/function/util_functions.dart';
 import 'package:thanks_diary/widgets/loveDialog/dialog/advise_content.dart';
 import 'package:thanks_diary/widgets/loveDialog/dialog/save_know_content.dart';
-import 'package:thanks_diary/widgets/loveDialog/dialog/save_love_content.dart';
 import 'package:thanks_diary/widgets/loveDialog/know_text_form.dart';
 import 'package:thanks_diary/widgets/util/dialog.dart';
 import 'package:thanks_diary/widgets/util/text.dart';
@@ -67,12 +66,13 @@ class InputPageState extends ConsumerState<KnowInputPage> {
                 formKey3.currentState?.save();
                 formKey4.currentState?.save();
                 formKey5.currentState?.save();
-                if (this.situation != "" ||
-                    this.feeling != "" ||
-                    this.why != "" ||
-                    this.view != "" ||
-                    this.want != "" ||
-                    this.talk != "")
+                if ((this.situation != "" ||
+                        this.feeling != "" ||
+                        this.why != "" ||
+                        this.view != "" ||
+                        this.want != "" ||
+                        this.talk != "") &&
+                    widget.know == null)
                   sendKnow(
                     ref,
                     situation: this.situation,
@@ -89,26 +89,6 @@ class InputPageState extends ConsumerState<KnowInputPage> {
               icon: Icon(Icons.arrow_back_ios_new_outlined,
                   color: Color.fromARGB(255, 40, 40, 40), size: 20),
             ),
-            actions: [
-              IconButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => BaseDialog(
-                              onButtonPressd: () {},
-                              buttonExist: false,
-                              color: Colors.white,
-                              closeIconExist: true,
-                              children: [
-                                SaveLoveContent(
-                                  text: "",
-                                )
-                              ],
-                            ));
-                  },
-                  icon: Icon(Icons.share_outlined,
-                      color: Color.fromARGB(255, 40, 40, 40), size: 20))
-            ],
             backgroundColor: AppColors.appbar,
             elevation: 0,
             centerTitle: true,
@@ -284,7 +264,8 @@ class InputPageState extends ConsumerState<KnowInputPage> {
                         minimumSize: const Size(260, 40),
                         shape: const StadiumBorder(),
                       ),
-                    )
+                    ),
+                    SizedBox(height: 40)
                   ]),
             ),
           ),

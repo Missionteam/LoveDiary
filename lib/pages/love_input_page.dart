@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:thanks_diary/allConstants/all_constants.dart';
 import 'package:thanks_diary/function/send_love.dart';
+import 'package:thanks_diary/widgets/loveDialog/dialog/save_love_content.dart';
 import 'package:thanks_diary/widgets/loveDialog/love_item_list.dart';
 import 'package:thanks_diary/widgets/util/text.dart';
 
@@ -11,6 +12,7 @@ import '../models/cloud_storage_model.dart';
 import '../models/loveCategory_model.dart';
 import '../providers/users_provider.dart';
 import '../widgets/thanks_dairy/home/add_picture.dart';
+import '../widgets/util/dialog.dart';
 import '../widgets/util/text_form.dart';
 
 class LoveInputPage extends ConsumerStatefulWidget {
@@ -97,7 +99,9 @@ class InputPageState extends ConsumerState<LoveInputPage> {
                               }
                             })
                           }),
-                  SizedBox(height: 40),
+                  SizedBox(height: 20),
+                  (imageFile != null) ? Image.file(imageFile!) : SizedBox(),
+                  SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
                       formKey.currentState?.save();
@@ -110,13 +114,25 @@ class InputPageState extends ConsumerState<LoveInputPage> {
                           imageFile: imageFile,
                         );
                       Navigator.of(context).pop();
+                      showDialog(
+                          context: context,
+                          builder: (context) => BaseDialog(
+                                onButtonPressd: () {},
+                                buttonExist: false,
+                                color: Colors.white,
+                                closeIconExist: true,
+                                children: [
+                                  SaveLoveContent(
+                                      text: this.memo ?? "好きなとこ書いてみた！")
+                                ],
+                              ));
                     },
                     child: Text("保存"),
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(260, 40),
                       shape: const StadiumBorder(),
                     ),
-                  )
+                  ),
                 ]),
           ),
         ),
