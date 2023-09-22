@@ -97,7 +97,12 @@ class _KnowViewState extends ConsumerState<KnowViewItem> {
                               buttonExist: false,
                               color: Colors.white,
                               closeIconExist: true,
-                              children: [SaveKnowContent()],
+                              height: 300,
+                              children: [
+                                SaveKnowContent(
+                                  know: know,
+                                )
+                              ],
                             ));
                     know.reference.update({"isSolved": true});
                   },

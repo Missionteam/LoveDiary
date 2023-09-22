@@ -124,7 +124,8 @@ class LoveItem extends StatefulWidget {
 class _LoveItemState extends State<LoveItem> {
   @override
   Widget build(BuildContext context) {
-    final isSelected = widget.loveReason == widget.selectedReason;
+    final isSelected =
+        widget.loveReason.reason == widget.selectedReason?.reason;
 
     return Row(
       children: [

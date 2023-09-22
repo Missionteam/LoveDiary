@@ -3,8 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:thanks_diary/allConstants/all_constants.dart';
 import 'package:thanks_diary/widgets/util/text.dart';
 
+import '../../../models/know.dart';
+
 class SaveKnowContent extends ConsumerWidget {
-  const SaveKnowContent({Key? key}) : super(key: key);
+  const SaveKnowContent({Key? key, required this.know}) : super(key: key);
+  final Know know;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,6 +29,11 @@ class SaveKnowContent extends ConsumerWidget {
           fontSize: 17,
         ),
         SizedBox(height: 20),
+        ElevatedButton(
+            onPressed: () {
+              know.reference.update({"isSolved": false});
+            },
+            child: Text("キャンセル"))
         // Container(
         //   decoration: BoxDecoration(
         //     border: Border.all(color: const Color.fromARGB(255, 0, 0, 0)),
