@@ -4,10 +4,26 @@ import 'package:thanks_diary/function/util_functions.dart';
 import 'package:thanks_diary/models/loveCategory_model.dart';
 import 'package:thanks_diary/widgets/util/text.dart';
 
-class LoveItemList extends ConsumerWidget {
-  const LoveItemList({super.key, required this.onItemTap, this.selectedReason});
+class KnowItemList extends ConsumerWidget {
+  const KnowItemList(
+      {super.key,
+      required this.onItemTap,
+      this.selectedReason,
+      required this.text1,
+      required this.text2,
+      required this.text3,
+      required this.text4,
+      required this.text5,
+      required this.text6});
   final Function(LoveReason?) onItemTap;
   final LoveReason? selectedReason;
+  final String text1;
+  final String text2;
+  final String text3;
+  final String text4;
+  final String text5;
+  final String text6;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ConstrainedBox(
@@ -124,8 +140,7 @@ class LoveItem extends StatefulWidget {
 class _LoveItemState extends State<LoveItem> {
   @override
   Widget build(BuildContext context) {
-    final isSelected =
-        widget.loveReason.reason == widget.selectedReason?.reason;
+    final isSelected = widget.loveReason == widget.selectedReason;
 
     return Row(
       children: [

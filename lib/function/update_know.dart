@@ -11,13 +11,11 @@ Future<void> updateKnow(
   WidgetRef ref,
   DocumentReference knowReference, {
   String? text,
-  String? situation,
+  String? what,
   String? feelings,
   String? why,
-  String? view,
-  String? want,
-  String? talk,
   String? imageLocalPath,
+  bool? isSoleved,
   File? imageFile,
   String? imageCloudPath,
 }) async {
@@ -31,15 +29,12 @@ Future<void> updateKnow(
   final newPost = Know(
       message: text,
       why: why ?? "",
-      situation: situation ?? "",
+      what: what ?? "",
       feeling: feelings ?? "",
-      view: view ?? "",
-      want: want ?? "",
-      talk: talk ?? "",
       date: Timestamp.now(),
       posterName: posterName,
       posterId: posterId,
-      imageLocalPath: imageLocalPath ?? '',
+      isSolved: isSoleved,
       imageUrl: (imageFile != null) ? imageCloudPath ?? '' : '',
       reference: knowReference,
       id: knowReference.id);

@@ -10,13 +10,10 @@ import '../providers/know_provider.dart';
 
 Future<void> sendKnow(
   WidgetRef ref, {
-  String? text,
-  String? situation,
+  String? baseReason,
+  String? what,
   String? feelings,
   String? why,
-  String? view,
-  String? want,
-  String? talk,
   String? imageLocalPath,
   File? imageFile,
   String? imageCloudPath,
@@ -32,17 +29,15 @@ Future<void> sendKnow(
     uploadFile(imageFile, imageCloudPath);
   }
   final newPost = Know(
-      message: text,
+      message: baseReason,
+      baseReason: baseReason,
       why: why ?? "",
-      situation: situation ?? "",
+      what: what ?? "",
       feeling: feelings ?? "",
-      view: view ?? "",
-      want: want ?? "",
-      talk: talk ?? "",
       date: Timestamp.now(),
       posterName: posterName,
       posterId: posterId,
-      imageLocalPath: imageLocalPath ?? '',
+      isSolved: false,
       imageUrl: (imageFile != null) ? imageCloudPath ?? '' : '',
       reference: newDocumentReference,
       id: id);

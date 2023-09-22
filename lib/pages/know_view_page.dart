@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:thanks_diary/allConstants/all_constants.dart';
-import 'package:thanks_diary/widgets/fundomental/know_list.dart';
+import 'package:thanks_diary/widgets/fundomental/know_view_item.dart';
 import 'package:thanks_diary/widgets/util/text.dart';
 
 import '../providers/users_provider.dart';
@@ -46,8 +46,8 @@ class HomePageContentState extends ConsumerState<KnowViewPage> {
           ),
         ),
       ),
-      body: KnowList(
-        isMine: isMine,
+      body: SingleChildScrollView(
+        child: KnowViewItem(),
       ),
     );
   }

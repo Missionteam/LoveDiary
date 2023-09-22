@@ -9,8 +9,9 @@ import 'package:thanks_diary/providers/users_provider.dart';
 import '../models/cloud_storage_model.dart';
 import '../models/love.dart';
 
-Future<void> sendLove(
+Future<void> updateLove(
   WidgetRef ref,
+  DocumentReference loveReference,
   LoveReason loveReason, {
   String? messege,
   String? imageLocalPath,
@@ -33,12 +34,12 @@ Future<void> sendLove(
       date: Timestamp.now(),
       posterName: posterName,
       posterId: posterId,
-      imageLocalPath: imageLocalPath ?? '',
-      imageUrl: (imageFile != null) ? imageCloudPath ?? '' : '',
+      // imageLocalPath: imageLocalPath ?? '',
+      imageUrl: imageCloudPath ?? '',
       reference: newDocumentReference,
       id: id);
 
-  newDocumentReference.set(newPost);
+  loveReference.update(newPost.toJson());
   // FirebaseCloudMessagingService().sendPushNotification(
   //     token: token,
   //     title: 'パートナーがありがとうを伝えました。',
