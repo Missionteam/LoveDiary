@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:thanks_diary/function/util_functions.dart';
 
 class TextForm extends StatefulWidget {
   TextForm({
@@ -10,8 +9,10 @@ class TextForm extends StatefulWidget {
     required this.hintText,
     required this.initialValue,
     required this.onSaved,
+    this.controller,
     this.fontSize = 24,
     this.topPadding = 20,
+    this.width = 300,
     this.color = Colors.white,
   }) : super(key: key);
   String text;
@@ -20,8 +21,10 @@ class TextForm extends StatefulWidget {
   Color color;
   Key? formKey;
   double fontSize;
+  double width;
   double topPadding;
   void Function(String?)? onSaved;
+  final TextEditingController? controller;
 
   @override
   State<TextForm> createState() => _TextFormState();
@@ -50,13 +53,16 @@ class _TextFormState extends State<TextForm> {
                   Material(
                     color: Color.fromARGB(0, 255, 214, 64),
                     child: Container(
-                      width: sWidth(context) * 0.8,
+                      width: widget.width,
                       child: new TextFormField(
                         enabled: true,
                         obscureText: false,
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
-                        initialValue: widget.initialValue,
+                        controller: widget.controller,
+                        initialValue: (widget.controller == null)
+                            ? widget.initialValue
+                            : null,
                         style: GoogleFonts.nunito(
                             color: widget.color,
                             fontSize: widget.fontSize,

@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:thanks_diary/function/util_functions.dart';
-import 'package:thanks_diary/models/loveCategory_model.dart';
 import 'package:thanks_diary/widgets/util/text.dart';
 
-class KnowItemList extends ConsumerWidget {
-  const KnowItemList({
+class KnowCheckBoxList extends ConsumerWidget {
+  const KnowCheckBoxList({
     super.key,
     required this.onItemTap,
-    this.selectedReason,
+    this.selectedItemText,
     required this.text,
     required this.text1,
     required this.text2,
@@ -18,8 +17,8 @@ class KnowItemList extends ConsumerWidget {
     required this.text5,
     required this.text6,
   });
-  final Function(LoveReason?) onItemTap;
-  final LoveReason? selectedReason;
+  final Function(String?) onItemTap;
+  final String? selectedItemText;
   final String text;
   final String text1;
   final String text2;
@@ -60,26 +59,20 @@ class KnowItemList extends ConsumerWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    LoveItem(
-                      imgPath: "time.png",
+                    CheckBox_Text(
                       text: text1,
                       onTap: onItemTap,
-                      selectedReason: selectedReason,
-                      loveReason: LoveReason.kindness,
+                      selectedItemText: selectedItemText,
                     ),
-                    LoveItem(
-                      imgPath: "word.png",
+                    CheckBox_Text(
                       text: text2,
                       onTap: onItemTap,
-                      selectedReason: selectedReason,
-                      loveReason: LoveReason.entertaining,
+                      selectedItemText: selectedItemText,
                     ),
-                    LoveItem(
-                      imgPath: "houseWork.png",
+                    CheckBox_Text(
                       text: text3,
                       onTap: onItemTap,
-                      selectedReason: selectedReason,
-                      loveReason: LoveReason.calm,
+                      selectedItemText: selectedItemText,
                     ),
                   ],
                 ),
@@ -91,26 +84,20 @@ class KnowItemList extends ConsumerWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      LoveItem(
-                        imgPath: "myTime.png",
+                      CheckBox_Text(
                         text: text4,
                         onTap: onItemTap,
-                        selectedReason: selectedReason,
-                        loveReason: LoveReason.cool,
+                        selectedItemText: selectedItemText,
                       ),
-                      LoveItem(
-                        imgPath: "goOut.png",
+                      CheckBox_Text(
                         text: text5,
                         onTap: onItemTap,
-                        selectedReason: selectedReason,
-                        loveReason: LoveReason.cute,
+                        selectedItemText: selectedItemText,
                       ),
-                      LoveItem(
-                        imgPath: "skinsip.png",
+                      CheckBox_Text(
                         text: text6,
                         onTap: onItemTap,
-                        selectedReason: selectedReason,
-                        loveReason: LoveReason.hear,
+                        selectedItemText: selectedItemText,
                       ),
                     ],
                   ),
@@ -124,29 +111,25 @@ class KnowItemList extends ConsumerWidget {
   }
 }
 
-class LoveItem extends StatefulWidget {
-  const LoveItem({
+class CheckBox_Text extends StatefulWidget {
+  const CheckBox_Text({
     Key? key,
-    required this.imgPath,
     required this.text,
     required this.onTap,
-    required this.selectedReason,
-    required this.loveReason,
+    required this.selectedItemText,
   }) : super(key: key);
-  final String imgPath;
   final String text;
-  final Function(LoveReason?) onTap;
-  final LoveReason? selectedReason;
-  final LoveReason loveReason;
+  final Function(String?) onTap;
+  final String? selectedItemText;
 
   @override
-  State<LoveItem> createState() => _LoveItemState();
+  State<CheckBox_Text> createState() => _CheckBox_TextState();
 }
 
-class _LoveItemState extends State<LoveItem> {
+class _CheckBox_TextState extends State<CheckBox_Text> {
   @override
   Widget build(BuildContext context) {
-    final isSelected = widget.loveReason == widget.selectedReason;
+    final isSelected = widget.text == widget.selectedItemText;
 
     return Row(
       children: [
@@ -154,16 +137,11 @@ class _LoveItemState extends State<LoveItem> {
           value: isSelected,
           onChanged: (bool? value) {
             if (value == true) {
-              widget.onTap(widget.loveReason);
+              widget.onTap(widget.text);
             } else {
               widget.onTap(null);
             }
           },
-          activeColor: widget.loveReason.color,
-          side: BorderSide(color: Colors.black, width: 3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4),
-          ),
         ),
         NotoText(text: widget.text)
       ],

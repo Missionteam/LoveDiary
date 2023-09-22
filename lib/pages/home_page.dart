@@ -66,7 +66,8 @@ class HomePageContentState extends ConsumerState<HomePageContent> {
   Widget build(BuildContext context) {
     final currentUserDoc = ref.watch(CurrentAppUserDocProvider).value;
     final partnerUserDoc = ref.watch(partnerUserDocProvider).value;
-
+    final partnerName =
+        ref.watch(CurrentAppUserDocProvider).value?.data()?.partnerName ?? "恋人";
     return Scaffold(
       backgroundColor: AppColors.main,
       appBar: AppBar(
@@ -75,7 +76,7 @@ class HomePageContentState extends ConsumerState<HomePageContent> {
         centerTitle: true,
         actions: [
           IconButton(
-            color: Color.fromARGB(0, 0, 0, 0),
+              color: Color.fromARGB(0, 0, 0, 0),
               onPressed: () {
                 context.go('/Home1/Setting');
               },
@@ -91,7 +92,7 @@ class HomePageContentState extends ConsumerState<HomePageContent> {
           children: [
             SizedBox(width: double.infinity),
             MyButton(
-                text: "○○の好きなところを書く。",
+                text: "${partnerName}の好きなところを書く。",
                 page: LoveInputPage(),
                 path: "/LoveView"),
             MyButton(
@@ -122,7 +123,7 @@ class MyButton extends StatelessWidget {
             context.go(path);
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor               : AppColors.buttonGreen,
+            backgroundColor: AppColors.buttonGreen,
             minimumSize: Size(sWidth(context) * 0.8, 50),
           ),
           child: NotoText(

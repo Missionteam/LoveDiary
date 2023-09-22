@@ -7,29 +7,24 @@ class Know {
     required this.why,
     required this.posterId,
     required this.posterName,
-    required this.situation,
+    required this.what,
     required this.feeling,
-    required this.view,
-    required this.want,
-    required this.talk,
-    this.stamps,
+    this.baseReason,
     this.imageUrl,
-    this.imageLocalPath,
+    this.isSolved,
     required this.reference,
     this.id = '',
   });
 
   final Timestamp date;
   final String? message;
-  final String situation;
-  final String feeling;
+  final String what;
+  final String? feeling;
   final String why;
-  final String view;
-  final String want;
-  final String talk;
+
   final String? imageUrl;
-  final String? stamps;
-  final String? imageLocalPath;
+  final String? baseReason;
+  final bool? isSolved;
   final String posterId;
   final String posterName;
   final String id;
@@ -42,16 +37,13 @@ class Know {
     return Know(
       date: map['date'],
       message: map['message'],
-      why: map["why"],
-      situation: map["situation"],
+      why: map["why"] ?? "",
+      what: map["what"] ?? "",
       feeling: map["feeling"],
-      view: map["view"],
-      want: map["want"],
-      talk: map["talk"],
       imageUrl: map['imageUrl'] ?? '',
-      imageLocalPath: map['imageLocalPath'] ?? '',
+      isSolved: map['isSolved'],
       posterId: map['posterId'],
-      stamps: map['stamps'] ?? '',
+      baseReason: map['baseReason'] ?? '',
       posterName: map['posterName'],
       id: map['id'] ?? '',
       reference: snapshot.reference,
@@ -63,14 +55,11 @@ class Know {
       'date': date,
       'message': message,
       'why': why,
-      'situation': situation,
+      'what': what,
       'feeling': feeling,
-      'view': view,
-      'want': want,
-      'talk': talk,
-      'stamps': stamps,
+      'baseReason': baseReason,
       'imageUrl': imageUrl,
-      'imageLocalPath': imageLocalPath,
+      'isSolved': isSolved,
       'posterId': posterId,
       'posterName': posterName,
       'id': id,

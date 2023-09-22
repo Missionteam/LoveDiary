@@ -85,6 +85,7 @@ class _KnowTextFormState extends State<KnowTextForm> {
                             filled: true,
                             fillColor: Color.fromARGB(0, 255, 193, 7)),
                         onSaved: widget.onSaved,
+                        onChanged: widget.onSaved,
                       ),
                     ),
                   ),

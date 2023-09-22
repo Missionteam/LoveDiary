@@ -9,7 +9,8 @@ import 'talkroom_provider.dart';
 ///ReferenceにあるKnowを取得するプロバイダー
 final knowProvider = StreamProvider((ref) {
   final KnowReference = ref.watch(knowReferenceProvider);
-  return KnowReference.orderBy('createdAt', descending: true).snapshots();
+  return KnowReference.where('isSolved', isEqualTo: false).snapshots();
+  // return KnowReference.snapshots();
 });
 
 final knowListProvider =
