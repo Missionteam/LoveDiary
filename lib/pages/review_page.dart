@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:thanks_diary/allConstants/all_constants.dart';
 import 'package:thanks_diary/providers/auth_provider.dart';
 import 'package:thanks_diary/providers/users_provider.dart';
 import 'package:thanks_diary/widgets/specific/review/official_post_widget.dart';
@@ -126,7 +127,7 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
     bool isVisible = ref.watch(isVisibleProvider).istrue;
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 173, 173),
+      backgroundColor: AppColors.main,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: Color.fromARGB(0, 250, 250, 250),
@@ -155,17 +156,10 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Image.asset('images/whatNowStamp/thanks_diary.png'),
-                ),
                 Padding(
                   padding: const EdgeInsets.only(left: 30, right: 30, top: 20),
                   child: Text(
-                      'このアプリは、大学生が制作したアプリです。\n私たちは、カップルの方々が「もっと恋人と繋がれる」ようなアプリを作りたいと考えていますが、まだまだ課題点が多いと感じています。皆さんがどのようなことを感じているのか、ぜひ私たちに聞かせて頂けませんか？'),
+                      'このアプリは、大学生が制作したアプリです。\n私たちは、恋人への感情を整理できるようなアプリを作りたいと考えていますが、まだまだ課題点が多いと感じています。皆さんがどのようなことを感じているのか、ぜひ私たちに聞かせて頂けませんか？'),
                 ),
                 Form(
                     key: _formKey,
@@ -197,7 +191,7 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
                                   FirebaseCloudMessagingService()
                                       .sendPushNotification(
                                           token:
-                                              'fynLxP2_RGC2QcLYx1zai_:APA91bFDRv4aASfedQzj5qi61Jkd7MPcid_vAjxw24uUSy8kUQ-MhGymWxm50MUhp1AzFy8v2aSt_Hl5zzyD8tR8_oZpZEhNg3Uw_-prcmkHx8NbAG8lXWA3EcyvOFhUlTTOy0U6WctK',
+                                              'cHvPLm_aDEmgvLy8CW2DOE:APA91bGN2HzM4waAIa63p3aq_pbIflsf-8y18_E4_ri69fuG_LMe-0NVfIJ99cWhLeiS0EAN_LyEvhkol52ZUlQma7Ybnfpzo1tlWKA8fS7Nvix6HTjIwe_XH5Db_ItM1BS3Xut2n0G2',
                                           title: '利用者の方からFBが届きました。',
                                           body: '',
                                           type: 'review',

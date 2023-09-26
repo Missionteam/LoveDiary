@@ -38,6 +38,9 @@ class ScaffoldWithNavBar1Review extends ConsumerStatefulWidget {
     if (location.startsWith('/KnowView')) {
       return 2;
     }
+    if (location.startsWith('/Review')) {
+      return 3;
+    }
 
     // if (location.startsWith('/Setting')) {
     //   return 4;
@@ -150,6 +153,11 @@ class _ScaffoldWithNavBar1ReviewState
                       label: '整理',
                       backgroundColor: backgroundColor,
                     ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.edit),
+                      label: 'フィードバック',
+                      backgroundColor: backgroundColor,
+                    ),
                   ],
                   currentIndex:
                       ScaffoldWithNavBar1Review._calculateSelectedIndex(
@@ -190,6 +198,10 @@ class _ScaffoldWithNavBar1ReviewState
         break;
       case 2:
         GoRouter.of(context).go('/KnowView');
+        break;
+      case 3:
+        GoRouter.of(context).go('/Review');
+
         // if (user?.isFirstUseVoice == true) {
         //   // showCustomSnackBar(context,
         //   //     bottomPadding: 30,
