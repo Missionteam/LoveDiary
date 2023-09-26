@@ -9,7 +9,6 @@ import '../../../models/cloud_storage_model.dart';
 import '../../../pages/auth/register.dart';
 import '../../../providers/talkroom_provider.dart';
 import '../../../providers/users_provider.dart';
-import 'linkage_dialog.dart';
 
 class MyProfileSettingPage extends ConsumerStatefulWidget {
   const MyProfileSettingPage({super.key});
@@ -106,42 +105,6 @@ class _MyProfileSettingPageState extends ConsumerState<MyProfileSettingPage> {
                         this._name = value ?? '';
                       },
                     ))),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('恋人：${partnerName}'),
-                  InkWell(
-                      onTap: () => showDialog(
-                          context: context, builder: (_) => LinkageDialog()),
-                      child: Container(
-                        height: 37,
-                        width: 80,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Color.fromARGB(255, 238, 238, 238),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.border_color_rounded,
-                              size: 15,
-                            ),
-                            SizedBox(
-                              width: 3,
-                            ),
-                            Text(
-                              '連携',
-                              style: GoogleFonts.nunito(fontSize: 15),
-                            )
-                          ],
-                        ),
-                      )),
-                ],
-              ),
-            ),
             SizedBox(
               height: 30,
             ),

@@ -64,7 +64,7 @@ class _KnowViewState extends ConsumerState<KnowViewItem> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: KnowTalkS  ummary(
+                              child: KnowTalkSummary(
                                 formKey5: formKey5,
                                 formKey6: formKey6,
                                 formKey7: formKey7,
