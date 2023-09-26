@@ -50,8 +50,15 @@ class KnowTalkSummary extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           NotoText(text: "今から言うことは、"),
-          BaseReasonItem(baseReason: "love", text: "あなたのことが大好き"),
-          BaseReasonItem(baseReason: "stay", text: "これからも一緒にいたい"),
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: NotoText(
+              text: "大好き/これからも一緒にいたい",
+              fontWeight: FontWeight.w600,
+              textAlign: TextAlign.center,
+            ),
+          ),
           NotoText(text: "と思っているから伝えるんだけど"),
           TextForm(
             formKey: formKey5,
@@ -86,7 +93,7 @@ class KnowTalkSummary extends ConsumerWidget {
                 text: "",
                 hintText: "",
                 controller: controller3,
-                initialValue: know?.why ?? "",
+                initialValue: know?.feeling ?? "",
                 color: Color.fromARGB(255, 28, 28, 28),
                 fontSize: 10,
                 topPadding: 0,

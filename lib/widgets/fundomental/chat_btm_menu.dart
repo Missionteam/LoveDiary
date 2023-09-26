@@ -100,5 +100,4 @@ class ModalMenuWidget extends StatelessWidget {
   //         post.reference.delete();
   //       },
   //       icon: const Icon(Icons.delete)),
-
 }

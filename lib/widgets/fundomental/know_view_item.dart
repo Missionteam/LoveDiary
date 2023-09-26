@@ -19,9 +19,6 @@ class KnowViewItem extends ConsumerStatefulWidget {
 }
 
 class _KnowViewState extends ConsumerState<KnowViewItem> {
-  final formKey5 = GlobalKey<FormState>();
-  final formKey6 = GlobalKey<FormState>();
-  final formKey7 = GlobalKey<FormState>();
   String? _selectedFeelings;
   String? what;
   String? why;
@@ -49,71 +46,108 @@ class _KnowViewState extends ConsumerState<KnowViewItem> {
                   text: "話したいことまとめ", fontWeight: FontWeight.w600, fontSize: 20),
               Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: KnowTalkSummary(
-                  formKey5: formKey5,
-                  formKey6: formKey6,
-                  formKey7: formKey7,
-                  know: know,
-                  baseReason: this.baseReason,
-                  what: this.what,
-                  why: this.why,
-                  onBaseReasonLoveSaved: (bool? value) {
-                    if (value == true) {
-                      setState(() {
-                        this.baseReason = "love";
-                      });
-                    }
+                child: ref.watch(knowProvider).when(
+                  data: (data) {
+                    /// 値が取得できた場合に呼ばれる。
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      reverse: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.only(top: 10, left: 10),
+                      itemCount: data.docs.length,
+                      itemBuilder: (context, index) {
+                        final know = data.docs[index].data();
+                        final formKey5 = GlobalKey<FormState>();
+                        final formKey6 = GlobalKey<FormState>();
+                        final formKey7 = GlobalKey<FormState>();
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: KnowTalkS  ummary(
+                                formKey5: formKey5,
+                                formKey6: formKey6,
+                                formKey7: formKey7,
+                                know: know,
+                                baseReason: know.baseReason,
+                                what: know.what,
+                                why: know.why,
+                                onBaseReasonLoveSaved: (bool? value) {
+                                  if (value == true) {
+                                    setState(() {
+                                      this.baseReason = "love";
+                                    });
+                                  }
+                                },
+                                onBaseReasonStaySaved: (bool? value) {
+                                  if (value == true) {
+                                    setState(() {
+                                      this.baseReason = "stay";
+                                    });
+                                  }
+                                },
+                                onWhatSaved: (String? value) {
+                                  setState(() {
+                                    this.what = value;
+                                  });
+                                },
+                                onWhySaved: (String? value) {
+                                  setState(() {
+                                    this.why = value;
+                                  });
+                                },
+                                onFeeingsSaved: (String? value) {
+                                  setState(() {
+                                    this._selectedFeelings = value;
+                                  });
+                                },
+                              ),
+                            ),
+                            ElevatedButton(
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => BaseDialog(
+                                            onButtonPressd: () {},
+                                            buttonExist: false,
+                                            color: Colors.white,
+                                            closeIconExist: true,
+                                            height: 300,
+                                            children: [
+                                              SaveKnowContent(
+                                                know: know,
+                                              )
+                                            ],
+                                          ));
+                                  know.reference.update({"isSolved": true});
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.buttonGreen,
+                                  maximumSize: Size(300, 60),
+                                ),
+                                child: NotoText(
+                                  text: "解決！",
+                                  color: Colors.white,
+                                )),
+                          ],
+                        );
+                      },
+                    );
                   },
-                  onBaseReasonStaySaved: (bool? value) {
-                    if (value == true) {
-                      setState(() {
-                        this.baseReason = "stay";
-                      });
-                    }
+                  error: (_, __) {
+                    /// 読み込み中にErrorが発生した場合に呼ばれる。
+                    return const Center(
+                      child: Text('不具合が発生しました。'),
+                    );
                   },
-                  onWhatSaved: (String? value) {
-                    setState(() {
-                      this.what = value;
-                    });
-                  },
-                  onWhySaved: (String? value) {
-                    setState(() {
-                      this.why = value;
-                    });
-                  },
-                  onFeeingsSaved: (String? value) {
-                    setState(() {
-                      this._selectedFeelings = value;
-                    });
+                  loading: () {
+                    /// 読み込み中の場合に呼ばれる。
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
                   },
                 ),
               ),
-              ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => BaseDialog(
-                              onButtonPressd: () {},
-                              buttonExist: false,
-                              color: Colors.white,
-                              closeIconExist: true,
-                              height: 300,
-                              children: [
-                                SaveKnowContent(
-                                  know: know,
-                                )
-                              ],
-                            ));
-                    know.reference.update({"isSolved": true});
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.buttonGreen,
-                    maximumSize: Size(300, 60),
-                  ),
-                  child: NotoText(
-                    text: "解決！",
-                    color: Colors.white,
-                  )),
             ],
           );
   }
